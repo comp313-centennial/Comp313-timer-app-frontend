@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:timer_app/ui/LoginPage.dart';
+import 'package:timer_app/ui/TimerPage.dart';
+import 'package:timer_app/utils/dependency_provider.dart';
 
 class HomeScreenPage extends StatefulWidget {
 
@@ -27,8 +30,8 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
         title: Text('Timer App'),
         actions: [
           FlatButton(
-            child: Text('Logout'),
-            onPressed: () {},
+            child: Text('Logout', style: TextStyle(color: Colors.white)),
+            onPressed: () => DependencyProvider.of(context).authBloc.logout(),
           )
         ],
       ),
@@ -57,7 +60,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _children = [
-      Container(),
+      CountDownTimer(),
       Container(),
       Container(),
       Container(),

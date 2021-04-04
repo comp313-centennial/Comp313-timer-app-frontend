@@ -8,6 +8,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="timer_app"
+        android:windowSoftInputMode="stateVisible"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
