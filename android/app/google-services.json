@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1053236477699",
+    "project_id": "timerapp-2c41e",
+    "storage_bucket": "timerapp-2c41e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053236477699:android:2e26f31bb528a33a8bf336",
+        "android_client_info": {
+          "package_name": "com.ryan.timer_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053236477699-s315ob5bkse25el6ml3mug75injnt5qb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp14hE6EYWchcYLyNCsHyZJEiPu0umV2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053236477699-s315ob5bkse25el6ml3mug75injnt5qb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
