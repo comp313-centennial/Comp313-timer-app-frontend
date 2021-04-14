@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timer_app/routes.dart';
-import 'package:timer_app/ui/LoginPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:timer_app/utils/dependency_provider.dart';
 import 'package:timer_app/utils/simple_bloc_observer.dart';

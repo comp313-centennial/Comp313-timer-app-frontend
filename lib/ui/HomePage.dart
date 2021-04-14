@@ -3,11 +3,15 @@ import 'package:timer_app/ui/LoginPage.dart';
 import 'package:timer_app/ui/TimerPage.dart';
 import 'package:timer_app/utils/dependency_provider.dart';
 
+import 'TimerList.dart';
+
 class HomeScreenPage extends StatefulWidget {
 
   final int page;
+  final int timerValue;
+  final String timerTitle;
 
-  HomeScreenPage({this.page});
+  HomeScreenPage({this.page, this.timerValue, this.timerTitle = 'Yoga'});
 
   @override
   _HomeScreenPageState createState() => _HomeScreenPageState();
@@ -60,8 +64,8 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _children = [
-      CountDownTimer(),
-      Container(),
+      CountDownTimer(timerValue: widget.timerValue, timerTitle: widget.timerTitle),
+      TimerList(),
       Container(),
       Container(),
     ];

@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class CountDownTimer extends StatefulWidget {
+
+  final int timerValue;
+  final String timerTitle;
+
+  const CountDownTimer({Key key, this.timerValue, this.timerTitle}) : super(key: key);
+
   @override
   _CountDownTimerState createState() => _CountDownTimerState();
 }
@@ -20,10 +26,12 @@ class _CountDownTimerState extends State<CountDownTimer>
   @override
   void initState() {
     super.initState();
+    timerValue = widget.timerValue == null ? 50 : widget.timerValue;
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 50),
+      duration: Duration(seconds: timerValue),
     );
+    if(widget.timerValue != null) controller.reverse(from: 1);
   }
 
   @override
@@ -93,14 +101,25 @@ class _CountDownTimerState extends State<CountDownTimer>
                                 ),
                                 Align(
                                   alignment: FractionalOffset.center,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 100.0),
-                                    child: Text(
-                                      timerString,
-                                      style: TextStyle(
-                                          fontSize: 112.0,
-                                          color: Colors.black),
-                                    ),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        widget.timerTitle,
+                                        style: TextStyle(
+                                            fontSize: 30.0,
+                                            color: Colors.black),
+                                      ),
+                                      Text(
+                                        timerString,
+                                        style: TextStyle(
+                                            fontSize: 112.0,
+                                            color: Colors.black),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
