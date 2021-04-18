@@ -54,6 +54,7 @@ class _LoginPage extends State<LoginPage> with WidgetsBindingObserver {
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: TextFormField(
                     controller: _emailController,
+                    key: Key("email_input"),
                     validator: FormValidator.emailAddressValidator,
                     onSaved: (val) => _loginDto.email = val.trim(),
                     decoration: InputDecoration(
@@ -66,6 +67,7 @@ class _LoginPage extends State<LoginPage> with WidgetsBindingObserver {
                   padding: const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0),
                   child: TextFormField(
                     controller: _passwordController,
+                    key: Key("password_input"),
                     obscureText: true,
                     onSaved: (val) => _loginDto.password = val,
                     validator: FormValidator.formValidation,
@@ -109,7 +111,8 @@ class _LoginPage extends State<LoginPage> with WidgetsBindingObserver {
                 SizedBox(
                   height: 10,
                 ),
-                FlatButton(
+                TextButton(
+                  key: Key("login_submit_btn"),
                   onPressed: () {
                     Navigator.push(
                         context,
