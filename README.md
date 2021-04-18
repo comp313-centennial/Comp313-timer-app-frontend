@@ -2,6 +2,15 @@
 
 Timer app with awesome customizations and a amazing user experience.
 
+
+## Testing
+
+### Run unit tests
+`flutter test`
+
+### Run integration tests
+`flutter drive --target=test_driver/app.dart`
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

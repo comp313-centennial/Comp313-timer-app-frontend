@@ -40,6 +40,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        key: Key("navigation_bar"),
         currentIndex: index,
         onTap: (currentIndex) => setState(() => index = currentIndex),
         items: <BottomNavigationBarItem>[
