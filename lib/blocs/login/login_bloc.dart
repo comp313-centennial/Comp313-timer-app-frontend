@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:timer_app/blocs/auth/bloc.dart';
+import 'package:timer_app/common/constants.dart';
 import 'package:timer_app/data/user_repo.dart';
 import 'package:meta/meta.dart';
 import 'package:timer_app/models/LoginCredentials.dart';
@@ -46,6 +47,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     yield LoginLoadingState();
     try {
       User user = await userRepo.loginWithEmailPass(event.data);
+      globalFirebaseUser = user;
       authBloc.login(user);
       yield LoginSuccessState(user: user);
     } catch (e) {

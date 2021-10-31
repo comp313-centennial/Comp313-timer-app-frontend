@@ -124,4 +124,18 @@ class UserRepo {
       throw e;
     }
   }
+
+  void updateUserData(UserModel user) async {
+    try {
+      var response = await _httpClient.post('updateUser', data: {
+        'name': '${user.displayName}',
+        'email': '${user.email}',
+        'phone': '${user.phoneNumber}',
+      });
+      var userModel = UserModel.fromJson(response.data);
+      globalUser = userModel;
+    } on PlatformException catch (e) {
+      throw e.message;
+    }
+  }
 }

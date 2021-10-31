@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:timer_app/blocs/navigation/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:timer_app/common/constants.dart';
 import 'package:timer_app/data/user_repo.dart';
 
 import 'auth_event.dart';
@@ -38,6 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _handleAppStarted(AppStartedEvent event) async* {
     final bool isUserLoggedIn = await userRepo.isLoggedIn();
     if (isUserLoggedIn) {
+      globalFirebaseUser = userRepo.user;
       yield AuthAuthenticatedState(userRepo.user);
     } else {
       yield AuthUnauthenticatedState();
