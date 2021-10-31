@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:timer_app/common/constants.dart';
 import 'package:timer_app/data/user_repo.dart';
@@ -17,6 +18,14 @@ class _ProfilepageState extends State<Profilepage> {
   final _formKey = GlobalKey<FormState>();
   UserModel user = UserModel();
   UserRepo userRepo = UserRepo();
+  TextEditingController nameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.text = globalFirebaseUser?.displayName;
+    globalFirebaseUser = FirebaseAuth.instance.currentUser;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +38,10 @@ class _ProfilepageState extends State<Profilepage> {
             SizedBox(height: 40),
             ListTile(
               title: editableText(
-                  text: globalFirebaseUser?.displayName ?? '',
+                text: globalFirebaseUser?.displayName,
                   onSaved: (val) =>
                   user = user.copyWith(displayName: val),
+                  controller: nameController,
                   style: textStyle),
               leading: Container(
                 margin: const EdgeInsets.symmetric(vertical: 10.0),
@@ -50,11 +60,11 @@ class _ProfilepageState extends State<Profilepage> {
   }
 
   Widget editableText(
-      {String text, TextStyle style, Function(String) onSaved}) {
+      {String text, TextStyle style, Function(String) onSaved, controller}) {
     if (this.editUser)
       return TextFormField(
-        initialValue: text,
         onSaved: onSaved,
+        controller: controller,
         validator: FormValidator.formValidation,
       );
     else
@@ -66,8 +76,9 @@ class _ProfilepageState extends State<Profilepage> {
       return;
     }
     _formKey.currentState.save();
-    user = user.copyWith(phoneNumber: globalFirebaseUser.phoneNumber, email: globalFirebaseUser.email);
+    user = user.copyWith(displayName: nameController.text, phoneNumber: globalFirebaseUser.phoneNumber, email: globalFirebaseUser.email);
     userRepo.updateUserData(user);
+    globalFirebaseUser.updateDisplayName(user.displayName);
     setState(() => editUser = !editUser);
     Navigator.of(context).pushNamed('/home');
   }
