@@ -34,6 +34,7 @@ class _ProfilepageState extends State<Profilepage> {
       child: Form(
         key: _formKey,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 40),
             ListTile(
@@ -50,9 +51,15 @@ class _ProfilepageState extends State<Profilepage> {
             ),
             SizedBox(height: 30),
             if(editUser)
-              ElevatedButton(onPressed: onPressed, child: Text('Submit')),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: ElevatedButton(onPressed: onPressed, child: Text('Submit')),
+              ),
             if(!editUser)
-              ElevatedButton(onPressed: () => setState(() => editUser = true), child: Text('Update Details')),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: ElevatedButton(onPressed: () => setState(() => editUser = true), child: Text('Update Details')),
+              ),
           ],
         ),
       ),
