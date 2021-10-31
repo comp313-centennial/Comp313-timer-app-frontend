@@ -6,6 +6,7 @@ import 'package:timer_app/blocs/auth/bloc.dart';
 import 'package:timer_app/data/user_repo.dart';
 import 'package:meta/meta.dart';
 import 'package:timer_app/models/LoginCredentials.dart';
+import 'package:timer_app/models/User.dart';
 
 import 'login_event.dart';
 import 'login_state.dart';
@@ -113,7 +114,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> _handleSignUpEvent(SignUpEvent event) async* {
     yield LoginLoadingState();
     try {
-      User user = await userRepo.signUpWithEmail(event.email, event.password, event.name);
+      UserModel user = await userRepo.signUpWithEmail(event.email, event.password, event.name, event.phone);
       yield SignUpEventSuccessState();
     } catch (e) {
       yield LoginErrorState(error: e.toString());
@@ -152,8 +153,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     add(SendResetPasswordLinkEvent(email: email));
   }
 
-  singUpWithEmail(String email, String password, String name) {
-    add(SignUpEvent(email: email, password: password, name: name));
+  singUpWithEmail(String email, String password, String name, String phone) {
+    add(SignUpEvent(email: email, password: password, name: name, phone: phone));
   }
 
   loginWithEmailLink(String email) {

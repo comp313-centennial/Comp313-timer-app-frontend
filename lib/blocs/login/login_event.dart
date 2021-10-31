@@ -43,8 +43,9 @@ class SignUpEvent extends LoginEvent {
   final String email;
   final String password;
   final String name;
+  final String phone;
 
-  SignUpEvent({this.email, this.password, this.name});
+  SignUpEvent({this.email, this.password, this.name, this.phone});
 
   @override
   String toString() {
