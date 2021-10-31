@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timer_app/ui/LoginPage.dart';
+import 'package:timer_app/ui/ProfilePage.dart';
 import 'package:timer_app/ui/TimerPage.dart';
 import 'package:timer_app/utils/dependency_provider.dart';
 
@@ -67,7 +68,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
     _children = [
       CountDownTimer(timerValue: widget.timerValue, timerTitle: widget.timerTitle),
       TimerList(),
-      Container(),
+      Profilepage(),
       Container(),
     ];
   }
