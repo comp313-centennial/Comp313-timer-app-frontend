@@ -143,7 +143,7 @@ class _SignUpPage extends State<SignUpPage> {
   Future<void> attemptSignUp(BuildContext context) async {
     Scaffold.of(_formKey.currentContext).removeCurrentSnackBar();
     if (_formKey.currentState.validate()) {
-      loginBloc.singUpWithEmail(_emailController.text.trim(), _passwordController.text, ('${_firstNameController.text} ${_lastNameController.text}'));
+      loginBloc.singUpWithEmail(_emailController.text.trim(), _passwordController.text, ('${_firstNameController.text} ${_lastNameController.text}'), _phoneController.text);
     }
   }
 

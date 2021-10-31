@@ -1,10 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:timer_app/common/constants.dart';
 import 'package:timer_app/models/LoginCredentials.dart';
+import 'package:timer_app/models/User.dart';
 
 class UserRepo {
   User user;
   final firebaseAuth = FirebaseAuth.instance;
+  final Dio _httpClient = Dio(
+    BaseOptions(baseUrl: 'https://us-central1-timerapp-2c41e.cloudfunctions.net/user/'),
+  );
 
   Future<User> loginWithEmailPass(LoginCredentials loginCredentials) async {
     final methods = await firebaseAuth.fetchSignInMethodsForEmail(loginCredentials.email);
@@ -64,14 +70,19 @@ class UserRepo {
     }
   }
 
-  Future<User> signUpWithEmail(String email, String password, String name) async {
+  Future<UserModel> signUpWithEmail(String email, String password, String name, String phone) async {
     final methods = await firebaseAuth.fetchSignInMethodsForEmail(email);
     if (methods.isEmpty) {
       try {
-        final result = await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-        this.user = result.user;
-        this.user..updateProfile(displayName: name);
-        return user;
+        var response = await _httpClient.post('registerUser', data: {
+          'name': '$name',
+          'email': email,
+          'phone': phone,
+          'password': password,
+        });
+        var userModel = UserModel.fromJson(response.data);
+        globalUser = userModel;
+        return userModel;
       } on PlatformException catch (e) {
         throw e.message;
       }
