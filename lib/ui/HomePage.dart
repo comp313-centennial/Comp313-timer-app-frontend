@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:timer_app/ui/LoginPage.dart';
 import 'package:timer_app/ui/ProfilePage.dart';
 import 'package:timer_app/ui/TimerPage.dart';
 import 'package:timer_app/utils/dependency_provider.dart';

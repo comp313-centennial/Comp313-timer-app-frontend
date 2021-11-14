@@ -125,12 +125,13 @@ class UserRepo {
     }
   }
 
-  void updateUserData(UserModel user) async {
+  void updateUserData(UserModel user, String bio) async {
     try {
       var response = await _httpClient.post('updateUser', data: {
         'name': '${user.displayName}',
         'email': '${user.email}',
         'phone': '${user.phoneNumber}',
+        'bio': bio
       });
       var userModel = UserModel.fromJson(response.data);
       globalUser = userModel;

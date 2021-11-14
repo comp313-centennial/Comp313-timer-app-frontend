@@ -19,11 +19,13 @@ class _ProfilepageState extends State<Profilepage> {
   UserModel user = UserModel();
   UserRepo userRepo = UserRepo();
   TextEditingController nameController = TextEditingController();
+  TextEditingController bioController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     nameController.text = globalFirebaseUser?.displayName;
+    bioController.text = globalUser?.bio;
     globalFirebaseUser = FirebaseAuth.instance.currentUser;
   }
 
@@ -49,6 +51,24 @@ class _ProfilepageState extends State<Profilepage> {
                 child: Text('Name:', style: textStyle),
               ),
             ),
+            if(globalUser?.bio != null || editUser)
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+                child: Text('Bio:', style: textStyle),
+              ),
+            if(globalUser?.bio != null || editUser)
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: editableText(
+                  text: globalUser?.bio,
+                  controller: bioController,
+                  style: textStyle.copyWith(fontWeight: FontWeight.w400)),
+            ),
+            if(globalUser?.bio == null && !editUser)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Text('Add a bio by clicking update details', style: Theme.of(context).textTheme.subtitle1,),
+              ),
             SizedBox(height: 30),
             if(editUser)
               Padding(
@@ -84,7 +104,7 @@ class _ProfilepageState extends State<Profilepage> {
     }
     _formKey.currentState.save();
     user = user.copyWith(displayName: nameController.text, phoneNumber: globalFirebaseUser.phoneNumber, email: globalFirebaseUser.email);
-    userRepo.updateUserData(user);
+    userRepo.updateUserData(user, bioController.text);
     globalFirebaseUser.updateDisplayName(user.displayName);
     setState(() => editUser = !editUser);
     Navigator.of(context).pushNamed('/home');
