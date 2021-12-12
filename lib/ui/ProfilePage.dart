@@ -41,7 +41,7 @@ class _ProfilepageState extends State<Profilepage> {
             SizedBox(height: 40),
             ListTile(
               title: editableText(
-                text: globalFirebaseUser?.displayName,
+                text: globalFirebaseUser?.displayName ?? '',
                   onSaved: (val) =>
                   user = user.copyWith(displayName: val),
                   controller: nameController,

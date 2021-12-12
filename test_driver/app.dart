@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_driver/driver_extension.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:timer_app/main.dart' as app;
+import 'package:timer_app/utils/dependency_provider.dart';
 import 'package:timer_app/utils/simple_bloc_observer.dart';
 
 void main() async {
@@ -21,5 +22,5 @@ void main() async {
 void _runApp() {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
-  runApp(app.MyApp());
+  runApp(DependencyProvider(child: app.MyApp()));
 }

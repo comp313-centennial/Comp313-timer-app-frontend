@@ -105,6 +105,7 @@ class UserRepo {
   }
 
   Future<void> logout() async {
+    globalUser = null;
     return firebaseAuth.signOut();
   }
   
@@ -135,6 +136,18 @@ class UserRepo {
       });
       var userModel = UserModel.fromJson(response.data);
       globalUser = userModel;
+    } on PlatformException catch (e) {
+      throw e.message;
+    }
+  }
+
+  Future<UserModel> getUserFromDb(String email) async {
+    try {
+      var response = await _httpClient.post('getUser', data: {
+        'email': '$email',
+      });
+      var userModel = UserModel.fromJson(response.data);
+      return userModel;
     } on PlatformException catch (e) {
       throw e.message;
     }

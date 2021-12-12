@@ -48,6 +48,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       User user = await userRepo.loginWithEmailPass(event.data);
       globalFirebaseUser = user;
+      globalUser = await userRepo.getUserFromDb(event.data.email);
       authBloc.login(user);
       yield LoginSuccessState(user: user);
     } catch (e) {
