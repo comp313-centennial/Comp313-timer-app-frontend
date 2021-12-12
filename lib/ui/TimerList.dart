@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:timer_app/common/constants.dart';
 import 'package:timer_app/models/TimerData.dart';
 import 'package:timer_app/ui/HomePage.dart';
 
@@ -33,7 +34,12 @@ class _TimerListState extends State<TimerList> {
           children: timers
               .map((timer) => ListTile(
                     title: Text(timer.timerTitle),
-                    trailing: IconButton(icon: Icon(Icons.share), onPressed: () => _shareTimer(timer)),
+                    trailing: globalUser?.userType != null &&
+                            globalUser.userType == 'instructor'
+                        ? IconButton(
+                            icon: Icon(Icons.share),
+                            onPressed: () => _shareTimer(timer))
+                        : null,
                     subtitle: Text('${timer.timerDuration} minutes'),
                     leading: Icon(Icons.timer),
                     onTap: () => Navigator.push(
@@ -60,6 +66,9 @@ class _TimerListState extends State<TimerList> {
   }
 
   _shareTimer(TimerData timer) {
-    Share.text('${timer.timerTitle}', '${timer.timerTitle}: ${timer.timerDuration} minutes \nShared via TimerApp', 'text/plain');
+    Share.text(
+        '${timer.timerTitle}',
+        '${timer.timerTitle}: ${timer.timerDuration} minutes \nShared via TimerApp',
+        'text/plain');
   }
 }

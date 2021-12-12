@@ -1,3 +1,4 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -13,10 +14,18 @@ class CountDownTimer extends StatefulWidget {
 }
 
 class _CountDownTimerState extends State<CountDownTimer>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   AnimationController controller;
   int timerValue;
   TextEditingController timerController = TextEditingController();
+  final assetsAudioPlayer = AssetsAudioPlayer();
+  final audioList = [
+    'assets/alarm1.mp3',
+    'assets/alarm2.mp3',
+    'assets/alarm3.mp3',
+    'assets/alarm4.mp3'
+  ];
+  String alarmTone = 'assets/alarm1.mp3';
 
   String get timerString {
     Duration duration = controller.duration * controller.value;
@@ -31,6 +40,13 @@ class _CountDownTimerState extends State<CountDownTimer>
       vsync: this,
       duration: Duration(seconds: timerValue),
     );
+    controller..addStatusListener((AnimationStatus status) {
+      if (timerString == '0:00') {
+        assetsAudioPlayer.open(Audio(alarmTone),
+          autoStart: true,
+        );
+      }
+    });
     if(widget.timerValue != null) controller.reverse(from: 1);
   }
 
@@ -55,6 +71,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                         margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         child: TextFormField(
                           controller: timerController,
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             hintText: 'Enter time in seconds',
                           ),
@@ -70,6 +87,24 @@ class _CountDownTimerState extends State<CountDownTimer>
                           label: Text("Start"))
                     ],
                   ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width/2,
+                  margin: EdgeInsets.only(left: 30, top: 70),
+                  child: DropdownButton<String>(
+                    value: alarmTone,
+                    items: audioList.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text('Alarm ${audioList.indexOf(value) + 1}'),
+                      );
+                    }).toList(),
+                    onChanged: (String value) {
+                      setState(() {
+                        alarmTone = value;
+                      });
+                    },
+                  )
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -157,6 +192,7 @@ class _CountDownTimerState extends State<CountDownTimer>
                                 return FloatingActionButton.extended(
                                     heroTag: "btn3",
                                     onPressed: () {
+                                      assetsAudioPlayer.stop();
                                       controller.reset();
                                     },
                                     icon: Icon(Icons.replay),

@@ -40,6 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final bool isUserLoggedIn = await userRepo.isLoggedIn();
     if (isUserLoggedIn) {
       globalFirebaseUser = userRepo.user;
+      globalUser = await userRepo.getUserFromDb(globalFirebaseUser.email);
       yield AuthAuthenticatedState(userRepo.user);
     } else {
       yield AuthUnauthenticatedState();

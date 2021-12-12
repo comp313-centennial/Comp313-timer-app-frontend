@@ -11,7 +11,7 @@ class HomeScreenPage extends StatefulWidget {
   final int timerValue;
   final String timerTitle;
 
-  HomeScreenPage({this.page, this.timerValue, this.timerTitle = 'Yoga'});
+  HomeScreenPage({this.page, this.timerValue, this.timerTitle = ''});
 
   @override
   _HomeScreenPageState createState() => _HomeScreenPageState();
